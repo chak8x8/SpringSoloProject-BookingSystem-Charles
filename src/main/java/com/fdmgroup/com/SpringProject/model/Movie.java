@@ -96,17 +96,5 @@ public class Movie {
 				+ releaseYear + ", genre=" + genre + "]";
 	}
 
-	@Override
-	public boolean equals(Object o) {
-
-		if (o instanceof Movie) {
-			Movie other = (Movie) o;
-			return this.id.equals(other.id) && this.title.equals(other.title) && this.genre.equals(other.genre)
-					&& this.rating == other.rating && this.runtime == other.runtime
-					&& this.releaseYear == other.releaseYear;
-
-		}
-		return false;
-	}
 
 }

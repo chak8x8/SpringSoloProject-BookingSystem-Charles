@@ -30,16 +30,6 @@ public class MovieControllerTest {
 
 	}
 
-//	@Test
-//	void test_getMoviePage_returnsCorrectView() {
-//		// Arrange
-//		String expected = "Movie.html";
-//		// Action
-//		String actual = movieController.getMoviePage(0L, modelMock);
-//		// Assert
-//		assertEquals(expected, actual);
-//	}
-
 	@Test
 	void test_getMoviesPage_returnsCorrectView() {
 		// Arrange

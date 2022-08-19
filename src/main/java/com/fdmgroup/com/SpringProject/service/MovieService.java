@@ -22,6 +22,11 @@ public class MovieService {
 		this.movieRepo = movieRepo;
 	}
 
+	/**
+	 * It is a method to find a movie with specific id.
+	 * @param id
+	 * @return
+	 */
 	public Movie findById(Long id) {
 		try {
 			return (this.movieRepo.findById(id))
@@ -32,24 +37,26 @@ public class MovieService {
 		return null;
 	}
 
+	/**
+	 * It is a method to find all movies
+	 * @return
+	 */
 	public List<Movie> findAll() {
 		return this.movieRepo.findAll();
 	}
 
+	/**
+	 * It is a method to save the new movie in the database, or update the existing movie.
+	 * @param movie
+	 */
 	public void save(Movie movie) {
-		if (!this.movieRepo.existsById(movie.getId())) {
-			Movie updateMovie = this.findById(movie.getId());
-			updateMovie.setTitle(movie.getTitle());
-			updateMovie.setRuntime(movie.getRuntime());
-			updateMovie.setReleaseYear(movie.getReleaseYear());
-			updateMovie.setRating(movie.getRating());
-			updateMovie.setGenre(movie.getGenre());
-			this.movieRepo.save(updateMovie);
-		} else
-			this.movieRepo.save(movie);
-
+		this.movieRepo.save(movie);
 	}
 
+	/**
+	 * It is a method to delete a movie in database.
+	 * @param id
+	 */
 	public void deleteById(Long id) {
 		this.movieRepo.deleteById(id);
 
