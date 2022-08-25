@@ -1,0 +1,20 @@
+package com.fdmgroup.com.SpringSoloProject.dal;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import com.fdmgroup.com.SpringSoloProject.model.Member;
+
+@Repository
+public interface MemberRepository extends JpaRepository<Member, Long>{
+
+	Optional<Member> findById(Long id);
+	
+	
+	@Query("SELECT m FROM Member m WHERE m.email =?1")
+	Member findByEmail(String email);
+	
+}
