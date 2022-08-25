@@ -10,6 +10,13 @@ import javax.persistence.Id;
 public class Member {
 	
 	
+	@Override
+	public String toString() {
+		return "Member [memberId=" + memberId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
+				+ email + ", password=" + password + "]";
+	}
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long memberId;
@@ -26,7 +33,6 @@ public class Member {
 	@Column(nullable = false, length = 640)
 	private String password;
 	
-	private String creditCard;
 	
 
 	public Member() {
@@ -35,21 +41,14 @@ public class Member {
 	}
 
 
-	public Member(String firstName, String lastName, String email, String password, String creditCard) {
+	public Member(String firstName, String lastName, String email, String password) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
-		this.creditCard = creditCard;
 	}
 
-
-	@Override
-	public String toString() {
-		return "Member [memberId=" + memberId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
-				+ email + ", password=" + password + ", creditCard=" + creditCard + "]";
-	}
 
 
 	public Long getMemberId() {
@@ -102,14 +101,6 @@ public class Member {
 	}
 
 
-	public String getCreditCard() {
-		return creditCard;
-	}
-
-
-	public void setCreditCard(String creditCard) {
-		this.creditCard = creditCard;
-	}
 
 	
 

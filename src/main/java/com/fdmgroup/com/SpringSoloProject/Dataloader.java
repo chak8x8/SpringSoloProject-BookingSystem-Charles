@@ -24,7 +24,6 @@ import com.fdmgroup.com.SpringSoloProject.model.Record;
 @Service
 public class Dataloader implements ApplicationRunner{
 	private MemberRepository memberRepo;
-//	private RoomRepository roomRepo;
 	private RecordRepository recordRepo;
 	
 	
@@ -38,19 +37,13 @@ public class Dataloader implements ApplicationRunner{
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-//		System.out.println("The Room Repository is running");
-//		Room room1 = new Room(0, 0, 100);
-//		Room room2 = new Room(0, 1, 150);
-//		Room room3 = new Room(0, 2, 300);
-//		this.roomRepo.saveAll(Arrays.asList(room1, room2, room3));
-//		System.out.println("The Room data is saved");
+
 		System.out.println("The Member Repository is running");
-		Member member1 = new Member("Peter", "Smith", "peter@fdm.com", new BCryptPasswordEncoder().encode("123456"), "1234-5678-9001-1234");
-		Member member2 = new Member("Jerry", "Drink", "jerry@fdm.com", new BCryptPasswordEncoder().encode("246810"), "1245-2345-3456-1234");
+		Member member1 = new Member("Peter", "Smith", "peter@fdm.com", new BCryptPasswordEncoder().encode("123456"));
+		Member member2 = new Member("Jerry", "Drink", "jerry@fdm.com", new BCryptPasswordEncoder().encode("246810"));
 		this.memberRepo.saveAll(Arrays.asList(member1, member2));
 		System.out.println("The Member data is saved");
 		System.out.println("The Record Repository is running");
-//		List<Room> roomList = roomRepo.findAll();
 		List<Member> memberList = memberRepo.findAll();
 		Date date1 = new Date();
 		Date date2 = new Date();
