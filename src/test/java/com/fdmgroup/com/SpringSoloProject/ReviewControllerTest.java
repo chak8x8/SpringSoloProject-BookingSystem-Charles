@@ -16,12 +16,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.core.support.RepositoryFactorySupport;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 
 import com.fdmgroup.com.SpringSoloProject.controller.AppController;
-import com.fdmgroup.com.SpringSoloProject.controller.RecordController;
 import com.fdmgroup.com.SpringSoloProject.controller.ReviewController;
 import com.fdmgroup.com.SpringSoloProject.dal.MemberRepository;
 import com.fdmgroup.com.SpringSoloProject.dal.RecordRepository;
@@ -34,35 +32,72 @@ import com.fdmgroup.com.SpringSoloProject.service.RecordService;
 import com.fdmgroup.com.SpringSoloProject.service.ReviewService;
 
 @ExtendWith(MockitoExtension.class)
-public class RecordControllerTest {
-	@Mock
-	Authentication authentication;
-	
-	@Mock
-	private RecordService recordService;
-	
-	@Mock
-	private MemberService memberServiceMock;
+public class ReviewControllerTest {
 
 	@Mock
 	private Model modelMock;
 	
-	private RecordController recordController;
+	
+	private Member member;
+	private Review review;
+	
+	private Record record;
+
+//	@Autowired
+//	private ReviewRepository reviewRepository;
+//	
+//	@Autowired
+//	private RecordRepository recordRepository;
+
+	@Mock
+	private ReviewService reviewService;
+	
+	@Mock
+	private RecordService recordService;
+
+	
+	private ReviewController reviewController;
 
 	@BeforeEach
 	public void setup() {
-		recordController = new RecordController(memberServiceMock, recordService);
+		
+		member = new Member("Peter", "Smith", "peter@fdm.com", new BCryptPasswordEncoder().encode("123456"));
+		Date date1 = new Date();
+		Date date2 = new Date();
+		record = new Record(member, date1, date2, false);
+		review = new Review(record,"abc");
+		reviewController = new ReviewController(recordService, reviewService);
+		
+	}
+
+	@Test
+	void test_editReview_returnsCorrectView() {
+		// Arrange
+		String expected = "review.html";
+		// Action
+		String actual = reviewController.editReview(1L, modelMock);
+		// Assert
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	void test_saveReview_returnsCorrectView() {
+		// Arrange
+		String expected = "review_success.html";
+		// Action
+		String actual = reviewController.saveReview(review);
+		// Assert
+		assertEquals(expected, actual);
+		
 
 	}
-	
+
 	@Test
-	void test_viewMyRrcords() {
+	void test_getReviews_returnsCorrectView() {
 		// Arrange
-		String expected = "myRecords.html";
-		
+		String expected = "reviews.html";
 		// Action
-		String actual = recordController.viewMyRecords(modelMock, authentication);
-		
+		String actual = reviewController.getReviews(modelMock);
 		// Assert
 		assertEquals(expected, actual);
 	}

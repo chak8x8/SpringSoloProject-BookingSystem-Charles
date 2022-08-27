@@ -40,7 +40,7 @@ public class ReviewController {
 	}
 	
 	@PostMapping("/saveReview")
-	public String saveMovie(@ModelAttribute Review review) {
+	public String saveReview(@ModelAttribute Review review) {
 		review.setCommentDate(new Date());
 		this.reviewService.save(review);
 		Record record = review.getRecord();

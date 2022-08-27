@@ -10,9 +10,18 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.fdmgroup.com.SpringSoloProject.controller.AppController;
 import com.fdmgroup.com.SpringSoloProject.controller.MemberController;
@@ -30,21 +39,29 @@ public class MemberControllerTest {
 	private Member member;
 
 	@Autowired
+	@Qualifier("databaseUserService")
+	protected UserDetailsService userDetailsService;
+
+	@MockBean
 	private MemberRepository memberRepository;
-	
-	@Autowired
+
+	@Mock
 	private MemberService memberService;
-	
-	@Autowired
-	private RecordService recordService; 
+
+	@Mock
+	private RecordService recordService;
+
+	@Mock
+	Authentication authentication;
 
 	private MemberController memberController;
 
 	@BeforeEach
 	public void setup() {
-		memberController = new MemberController(memberService, recordService);
-		memberService = new MemberService(memberRepository);
 		member = new Member("Peter", "Smith", "peter@fdm.com", new BCryptPasswordEncoder().encode("123456"));
+		memberController = new MemberController(memberService, recordService);
+		UserDetails user = this.userDetailsService.loadUserByUsername("peter@fdm.com");
+		authentication = new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
 	}
 
 	@Test
@@ -77,37 +94,38 @@ public class MemberControllerTest {
 		// Assert
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	void test_getReservation2_returnsCorrectView() {
 		// Arrange
 		String expected = "reservation_2.html";
 		// Action
-		String actual = memberController.getReservation1(member);
+		String actual = memberController.getReservation2(member);
 		// Assert
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	@WithMockUser(username = "peter@fdm.com", password = "123456")
 	void test_editMemberForm_returnsCorrectView() {
 		// Arrange
-
+		String expected = "editMember.html";
+		
 		// Action
-		memberController.editMemberForm(modelMock, MockUser).save(member);
-
-		// Assert
-		verify(memberRepository, times(1)).save(member);
-	}
-
-	@Test
-	void test_showUpdateForm_returnsCorrectView() {
-		// Arrange
-		String expected = "members.html";
-		// Action
-		String actual = appController.viewMembersList();
+		System.out.println(authentication.getName());
+		String actual = memberController.editMemberForm(modelMock, authentication);
+		
 		// Assert
 		assertEquals(expected, actual);
 	}
+
+//	@Test
+//	void test_showUpdateForm_returnsCorrectView() {
+//		// Arrange
+//		String expected = "members.html";
+//		// Action
+//		String actual = appController.viewMembersList();
+//		// Assert
+//		assertEquals(expected, actual);
+//	}
 
 }
