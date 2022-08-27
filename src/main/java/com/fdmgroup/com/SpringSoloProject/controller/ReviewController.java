@@ -9,11 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import com.fdmgroup.com.SpringSoloProject.model.Member;
 import com.fdmgroup.com.SpringSoloProject.model.Review;
 import com.fdmgroup.com.SpringSoloProject.model.Record;
-import com.fdmgroup.com.SpringSoloProject.service.MemberService;
 import com.fdmgroup.com.SpringSoloProject.service.RecordService;
 import com.fdmgroup.com.SpringSoloProject.service.ReviewService;
 
@@ -31,20 +28,12 @@ public class ReviewController {
 		this.reviewService = reviewService;
 	}
 
-//	@GetMapping("/movie/{id}")
-//	public String getMembersPageById(@PathVariable(name="id") Long id, Model model) {
-//		Member foundMember = this.memberService.findById(id);
-//		System.out.println(foundMovie);
-//		model.addAttribute("foundMovie",foundMovie);
-//		return "Movie";
-//	}
 
 	
 	@GetMapping("/review/{id}")
 	public String editReview(@PathVariable(name="id") Long id, Model model) {
 		Review review = new Review();
 		Record record = this.recordService.findById(id);
-//		System.out.println(record.toString());
 		review.setRecord(record);
 		model.addAttribute("review", review);
 		return "review.html";
@@ -52,13 +41,12 @@ public class ReviewController {
 	
 	@PostMapping("/saveReview")
 	public String saveMovie(@ModelAttribute Review review) {
-		System.out.println(review.toString());
 		review.setCommentDate(new Date());
 		this.reviewService.save(review);
 		Record record = review.getRecord();
 		record.setReviewed(true);
 		this.recordService.save(record);
-		return "member_index.html";
+		return "review_success.html";
 	}
 	
 	@GetMapping("/reviews")

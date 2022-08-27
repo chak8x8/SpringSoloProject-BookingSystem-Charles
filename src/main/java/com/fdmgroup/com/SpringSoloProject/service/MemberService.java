@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.fdmgroup.com.SpringSoloProject.dal.MemberRepository;
 import com.fdmgroup.com.SpringSoloProject.model.Member;
-import com.fdmgroup.com.SpringSoloProject.model.Record;
 
 @Service
 public class MemberService {
@@ -47,7 +46,7 @@ public class MemberService {
 	}
 	
 	public Member save(Member member) {
-		return memberRepo.save(member);
+		return this.memberRepo.save(member);
 		
 	}
 	

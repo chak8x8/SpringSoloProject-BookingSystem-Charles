@@ -1,13 +1,10 @@
 package com.fdmgroup.com.SpringSoloProject.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import org.springframework.security.core.Authentication;
-import com.fdmgroup.com.SpringSoloProject.dal.MemberRepository;
 import com.fdmgroup.com.SpringSoloProject.dal.RecordRepository;
 import com.fdmgroup.com.SpringSoloProject.model.Record;
 
@@ -16,7 +13,6 @@ public class RecordService {
 	
 	
 	private RecordRepository recordRepo;
-	private MemberRepository memberRepo;
 
 	@Autowired
 		public RecordService(RecordRepository recordRepo) {
@@ -35,7 +31,6 @@ public class RecordService {
 	}
 	
 	public List<Record> findByMemberId(Long id){
-//		Long id = memberRepo.findByEmail(auth.getName()).getMemberId();
 		return this.recordRepo.findByMemberId(id);
 		
 	}
@@ -49,7 +44,7 @@ public class RecordService {
 	}
 	
 	public Record save(Record record) {
-		return recordRepo.save(record);
+		return this.recordRepo.save(record);
 		
 	}
 	

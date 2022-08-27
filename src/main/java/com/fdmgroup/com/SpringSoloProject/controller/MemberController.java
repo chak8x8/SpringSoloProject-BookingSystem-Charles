@@ -3,7 +3,6 @@ package com.fdmgroup.com.SpringSoloProject.controller;
 import java.sql.Date;
 import java.util.concurrent.TimeUnit;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -11,9 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fdmgroup.com.SpringSoloProject.dal.RecordRepository;
 import com.fdmgroup.com.SpringSoloProject.model.Member;
-import com.fdmgroup.com.SpringSoloProject.model.Review;
 import com.fdmgroup.com.SpringSoloProject.model.Record;
 import com.fdmgroup.com.SpringSoloProject.service.MemberService;
 import com.fdmgroup.com.SpringSoloProject.service.RecordService;
@@ -52,19 +49,15 @@ public class MemberController {
 	public String getReservation2(Member member) {
 		return "reservation_2.html";
 	}
-	
-//	@GetMapping("/myRecords")
-//	public String getMyRecords(Member member) {
-//		return "myRecords.html";
-//	}
+
 	
 	@GetMapping("/editMember")
-	public String showUpdateForm(Model model, Authentication auth) {
+	public String editMemberForm(Model model, Authentication auth) {
 		Member member = memberService.findByEmail(auth.getName());
 		model.addAttribute("member", member);
 		String newPassword = new BCryptPasswordEncoder().encode(member.getPassword());
 		member.setPassword(newPassword);
-		memberService.save(member);
+		this.memberService.save(member);
 		return "editMember.html";
 	}
 	
@@ -96,7 +89,7 @@ public class MemberController {
 		model.addAttribute("totalPrice", totalPrice);
 		Record record = new Record(member, startDate, endDate, false);
 		model.addAttribute("record", record); 
-		recordService.save(record);	
+		this.recordService.save(record);	
 		return "reservation_2.html";		
 	}
 	

@@ -63,7 +63,7 @@
 			<div class="page-header"
 				style="background-image: url(assets/images/header-1.jpg)">
 				<div class="container">
-					<h2 class="title">Reviews</h2>
+					<h2 class="title">Review</h2>
 				</div>
 			</div>
 
@@ -85,23 +85,13 @@
 
 								<div class="note-block">
 
-									<div class="container">
-
-						
-										<table class="table">
-											<tr>
-												<th scope="col">Review ID</th>
-												<th scope="col">Review Date</th>
-												<th scope="col">Content</th>
-											</tr>
-											<tr th:each="review : ${reviews}" th:object="${review}">
-												<th th:text="*{reviewId}" scope="row">Spiderman</th>
-												<td th:text="*{commentDate}">5</td>
-												<td th:text="*{comment}">90</td>
-
-											</tr>
-										</table>
-
+									<div class="container text-center">
+										<div>
+											<h3>Thank you for your feedback!</h3>
+											<!-- <button> -->
+												<a th:href="@{/member_index}">Click here to home page</a>
+											<!-- </button> -->
+										</div>
 									</div>
 
 

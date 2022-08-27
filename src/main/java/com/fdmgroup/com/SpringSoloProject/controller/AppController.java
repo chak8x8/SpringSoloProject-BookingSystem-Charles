@@ -9,12 +9,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.fdmgroup.com.SpringSoloProject.dal.MemberRepository;
 import com.fdmgroup.com.SpringSoloProject.model.Member;
+import com.fdmgroup.com.SpringSoloProject.service.MemberService;
 
 @Controller
 public class AppController {
 	
 	@Autowired
 	private MemberRepository memberReposity;
+	
+	private MemberService memberService;
 	
 	@GetMapping("")
 	public String viewHomePage() {
@@ -33,7 +36,7 @@ public class AppController {
 	public String processRegistration(Member member) {
 		String newPassword = new BCryptPasswordEncoder().encode(member.getPassword());
 		member.setPassword(newPassword);
-		memberReposity.save(member);
+		this.memberService.save(member);
 		return "register_success.html";
 	}
 	
@@ -41,7 +44,7 @@ public class AppController {
 	public String processEdit(Member member) {
 		String newPassword = new BCryptPasswordEncoder().encode(member.getPassword());
 		member.setPassword(newPassword);
-		memberReposity.save(member);
+		this.memberService.save(member);
 		return "edit_success.html";
 	}
 	

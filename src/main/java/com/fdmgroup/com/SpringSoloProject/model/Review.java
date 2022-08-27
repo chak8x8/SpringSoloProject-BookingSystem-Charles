@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Review {
@@ -15,12 +16,10 @@ public class Review {
 	@GeneratedValue
 	private Long reviewId;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "fk_record_id")
 	private Record record;
-	
-//	@ManyToOne
-//	private Member member;
+
 	
 	private String comment;
 	private Date commentDate;
