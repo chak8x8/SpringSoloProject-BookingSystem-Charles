@@ -12,7 +12,11 @@ import com.fdmgroup.com.SpringSoloProject.model.Record;
 import com.fdmgroup.com.SpringSoloProject.service.MemberService;
 import com.fdmgroup.com.SpringSoloProject.service.RecordService;
 
-
+/**
+ * This class is to return the view to be rendered as a response.
+ * @author chak8x8
+ *
+ */
 @Controller
 public class RecordController {
 	
@@ -27,7 +31,12 @@ public class RecordController {
 	}
 	
 
-	
+	/**
+	 *  It is a method that the address is myRecords and it will find the current user date and load his records for the next page and redirect to myRecords page.
+	 * @param model
+	 * @param auth
+	 * @return
+	 */
 	@GetMapping("/myRecords")
 	public String viewMyRecords(Model model, Authentication auth) {
 		Member member = memberService.findByEmail(auth.getName());

@@ -8,6 +8,12 @@ import org.springframework.stereotype.Service;
 import com.fdmgroup.com.SpringSoloProject.dal.RecordRepository;
 import com.fdmgroup.com.SpringSoloProject.model.Record;
 
+/**
+ *  It is a class to provide business functionalities.
+ *  
+ * @author chak8x8
+ *
+ */
 @Service
 public class RecordService {
 	
@@ -20,6 +26,11 @@ public class RecordService {
 			this.recordRepo = recordRepo;
 		}
 
+	/**
+	 * It is a method to find a record with specific record id.
+	 * @param id
+	 * @return
+	 */
 	public Record findById(Long id) {
 		try {
 			return (this.recordRepo.findById(id))
@@ -30,19 +41,29 @@ public class RecordService {
 		return null;
 	}
 	
+	/**
+	 * It is a method to find all records which belong to specific member.
+	 * @param id
+	 * @return
+	 */
 	public List<Record> findByMemberId(Long id){
 		return this.recordRepo.findByMemberId(id);
 		
 	}
 
 	/**
-	 * It is a method to find all members
+	 * It is a method to find all records.
 	 * @return
 	 */
 	public List<Record> findAll() {
 		return this.recordRepo.findAll();
 	}
 	
+	/**
+	 *  It is a method to save the new record in the database, or update the existing record.
+	 * @param record
+	 * @return
+	 */
 	public Record save(Record record) {
 		return this.recordRepo.save(record);
 		

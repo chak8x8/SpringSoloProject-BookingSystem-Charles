@@ -9,7 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import com.fdmgroup.com.SpringSoloProject.model.Review;
 
-
+/**
+ * 
+ * @author chak8x8
+ * It is an interface to allow ReviewService class to use.
+ */
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long>{
 

@@ -9,32 +9,30 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fdmgroup.com.SpringSoloProject.dal.MemberRepository;
 import com.fdmgroup.com.SpringSoloProject.model.Member;
 import com.fdmgroup.com.SpringSoloProject.service.MemberService;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class MemberServiceTest {
 
-	private MemberService memberService;
 
-	@MockBean
+	private MemberService memberService;
+	
+	@Mock
 	private MemberRepository memberRepo;
 
-	@Mock
 	private Member member;
 
 	@BeforeEach
 	public void setup() {
-		member = new Member();
+		member = new Member("Testing", "testing", "testing@fdm.com", new BCryptPasswordEncoder().encode("123456"));
 		memberService = new MemberService(memberRepo);
-		
 	}
 
 	@Test
@@ -53,9 +51,10 @@ class MemberServiceTest {
 	@Test
 	void test_member_foundByEmail() {
 		// Arrange
-
-		// Action
 		String email = "abc@abc.com";
+		when(memberRepo.findByEmail(email)).thenReturn(member);
+		
+		// Action
 		memberService.findByEmail(email);
 
 		// Assert

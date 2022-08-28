@@ -8,13 +8,22 @@ import org.springframework.stereotype.Repository;
 
 import com.fdmgroup.com.SpringSoloProject.model.Member;
 
+
+
+/**
+ * 
+ * @author chak8x8
+ * It is an interface to allow MemberService class to use.
+ */
+
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long>{
 
 	Optional<Member> findById(Long id);
 	
-	
 	@Query("SELECT m FROM Member m WHERE m.email =?1")
 	Member findByEmail(String email);
+	
+	
 	
 }

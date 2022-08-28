@@ -18,6 +18,11 @@ public class ReviewService {
 			this.reviewRepo = reviewRepo;
 		}
 
+	/**
+	 * It is a method to find a review with specific review id.
+	 * @param id
+	 * @return
+	 */
 	public Review findById(Long id) {
 		try {
 			return (this.reviewRepo.findById(id))
@@ -29,13 +34,18 @@ public class ReviewService {
 	}
 	
 	/**
-	 * It is a method to find all members
+	 * It is a method to find all reviews.
 	 * @return
 	 */
 	public List<Review> findAll() {
 		return this.reviewRepo.findAll();
 	}
 	
+	/**
+	 * It is a method to save the new review in the database, or update the existing review.
+	 * @param review
+	 * @return
+	 */
 	public Review save(Review review) {
 		return reviewRepo.save(review);
 		

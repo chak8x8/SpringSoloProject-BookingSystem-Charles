@@ -14,6 +14,11 @@ import com.fdmgroup.com.SpringSoloProject.model.Record;
 import com.fdmgroup.com.SpringSoloProject.service.RecordService;
 import com.fdmgroup.com.SpringSoloProject.service.ReviewService;
 
+/**
+ * This class is to return the view to be rendered as a response.
+ * @author chak8x8
+ *
+ */
 @Controller
 public class ReviewController {
 	
@@ -28,10 +33,14 @@ public class ReviewController {
 		this.reviewService = reviewService;
 	}
 
-
-	
+	/**
+	 * It is a method that the address is review/{id} and it will find a specific record and will be loaded for user to leave review on next page and then it will redirect to review page.
+	 * @param id
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/review/{id}")
-	public String editReview(@PathVariable(name="id") Long id, Model model) {
+	public String leaveReview(@PathVariable(name="id") Long id, Model model) {
 		Review review = new Review();
 		Record record = this.recordService.findById(id);
 		review.setRecord(record);
@@ -39,6 +48,11 @@ public class ReviewController {
 		return "review.html";
 	}
 	
+	/**
+	 * It is a method that the address is saveReview and reviewService will call the save method and record will know that this record got a review and will not allow user to add new review and then it will redirect to review_success page.
+	 * @param review
+	 * @return
+	 */
 	@PostMapping("/saveReview")
 	public String saveReview(@ModelAttribute Review review) {
 		review.setCommentDate(new Date());
@@ -49,6 +63,11 @@ public class ReviewController {
 		return "review_success.html";
 	}
 	
+	/**
+	 * It is a method that the address is reviews and it loads all reviews for next page to display and it will redirect to reviews page.
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/reviews")
 	public String getReviews(Model model) {
 		List<Review> reviews = this.reviewService.findAll();

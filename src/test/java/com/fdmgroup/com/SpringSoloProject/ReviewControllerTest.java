@@ -43,11 +43,6 @@ public class ReviewControllerTest {
 	
 	private Record record;
 
-//	@Autowired
-//	private ReviewRepository reviewRepository;
-//	
-//	@Autowired
-//	private RecordRepository recordRepository;
 
 	@Mock
 	private ReviewService reviewService;
@@ -75,7 +70,7 @@ public class ReviewControllerTest {
 		// Arrange
 		String expected = "review.html";
 		// Action
-		String actual = reviewController.editReview(1L, modelMock);
+		String actual = reviewController.leaveReview(1L, modelMock);
 		// Assert
 		assertEquals(expected, actual);
 	}
